@@ -26,3 +26,5 @@ Agremos con add . el archivo primos.py luego comentamos con "git commit -m" y po
 * Visual Studio Code
 
 Ayuda utilizada para crear el README [Github docs](https://docs.github.com/es/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax)
+
+![INGENIERIA DE SOFTWARE 2](https://cdn.discordapp.com/attachments/1242571382110290011/1351649650834149528/image.png?ex=67db2555&is=67d9d3d5&hm=307f2545f5525a65446a8f1c0a5192832b65178e459c8de6c3933ace86889d96&)
