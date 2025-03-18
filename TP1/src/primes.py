@@ -14,3 +14,6 @@ for num in range(lower, upper + 1):
                break
        else:
            print(num)
+
+#Este archivo fue borrado accidentalmente y se recupero mediante el
+#comando git log --oneline y luego git checkout id commit --primes.py
