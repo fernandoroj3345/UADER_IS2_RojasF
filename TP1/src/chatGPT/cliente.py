@@ -1,3 +1,4 @@
+ #este es un comentario
  response = client.chat.completions.create(
  model="gpt-4o-mini-2024-07-18",
  response_format={ "type": "json_object" },
