@@ -25,116 +25,90 @@ jsonStr=response.choices[0].message.content
 """
 
 ### P1 ###
-"""
+
 import openai
 import os
 
 # Crear cliente OpenAI
-client = openai.OpenAI(
-#aca va la clave
-)
+api_key = os.environ.get("API_KEY_GPT")
+print(api_key)
+client = openai.OpenAI(api_key=api_key)
+
 
 def main():
-context = "Eres un asistente útil que responde con claridad y precisión."
-usertask = "Estoy interactuando con el modelo de lenguaje chatGPT."
+    context = "Eres un asistente útil que responde con claridad y precisión."
+    usertask = "Estoy interactuando con el modelo de lenguaje chatGPT."
+    userquery = input("Introduce tu consulta: ").strip()
 
-userquery = input("Introduce tu consulta: ").strip()
+    if not userquery:
+        print("La consulta no puede estar vacía.")
+    return
 
-if not userquery:
-print("La consulta no puede estar vacía.")
-return
+    print(f"You: {userquery}")
 
-print(f"You: {userquery}")
+    try:
+        response = client.chat.completions.create(
+        model="gpt-4o-mini-2024-07-18",
+        messages=[
+        { "role": "system", "content": context },
+        { "role": "user", "content": usertask },
+        { "role": "user", "content": userquery }
+        ],
+        temperature=1,
+        max_tokens=1000,
+        top_p=1,
+        frequency_penalty=0)
+    finally:
+        print("hola")
 
-try:
-response = client.chat.completions.create(
-model="gpt-4o-mini-2024-07-18",
-messages=[
-{ "role": "system", "content": context },
-{ "role": "user", "content": usertask },
-{ "role": "user", "content": userquery }
-],
-temperature=1,
-max_tokens=1000,
-top_p=1,
-frequency_penalty=0,
-presence_penalty=0
-)
+    context = "Eres un asistente útil que responde con claridad y precisión."
+    usertask = "Estoy interactuando con el modelo de lenguaje chatGPT."
 
-jsonStr = response.choices[0].message.content
-print(f"chatGPT: {jsonStr}")
+    # Aceptar consulta del usuario
+    try:
+        userquery = input("Introduce tu consulta: ").strip()
+        if not userquery:
+            raise ValueError("La consulta no puede estar vacía.")
+    except ValueError as ve:
+        print(ve)
+        return
+    except Exception as e:
+        print("Error al aceptar la consulta del usuario:", e)
+        return
 
-except Exception as e:
-print("Error al invocar el API de OpenAI:", e)
+        print(f"You: {userquery}")
 
-if __name__ == "__main__":
-main()
+    # Invocar el API de OpenAI
+    try:
+        response = client.chat.completions.create(
+        model="gpt-4o-mini-2024-07-18",
+        messages=[
+        {"role": "system", "content": context},
+        {"role": "user", "content": usertask},
+        {"role": "user", "content": userquery}
+        ],
+        temperature=1,
+        max_tokens=1000,
+        top_p=1,
+        frequency_penalty=0,
+        presence_penalty=0
+    )
 
-"""
-### P2 ###
-"""
-import openai
-import os
+        jsonStr = response.choices[0].message.content
+        print(f"chatGPT: {jsonStr}")
+    except Exception as e:
+        print("Error al invocar el API de OpenAI:", e)
 
-def main():
-try:
-# Crear cliente OpenAI
-try:
-client = openai.OpenAI(
-aca va la clave
-)
-except Exception as e:
-print("Error al inicializar el cliente OpenAI:", e)
-return
-
-context = "Eres un asistente útil que responde con claridad y precisión."
-usertask = "Estoy interactuando con el modelo de lenguaje chatGPT."
-
-# Aceptar consulta del usuario
-try:
-userquery = input("Introduce tu consulta: ").strip()
-if not userquery:
-raise ValueError("La consulta no puede estar vacía.")
-except ValueError as ve:
-print(ve)
-return
-except Exception as e:
-print("Error al aceptar la consulta del usuario:", e)
-return
-
-print(f"You: {userquery}")
-
-# Invocar el API de OpenAI
-try:
-response = client.chat.completions.create(
-model="gpt-4o-mini-2024-07-18",
-messages=[
-{"role": "system", "content": context},
-{"role": "user", "content": usertask},
-{"role": "user", "content": userquery}
-],
-temperature=1,
-max_tokens=1000,
-top_p=1,
-frequency_penalty=0,
-presence_penalty=0
-)
-
-jsonStr = response.choices[0].message.content
-print(f"chatGPT: {jsonStr}")
-except Exception as e:
-print("Error al invocar el API de OpenAI:", e)
-
-except KeyboardInterrupt:
-print("\nPrograma interrumpido por el usuario.")
-except Exception as e:
-print("Error inesperado en el programa:", e)
+    except KeyboardInterrupt:
+        print("\nPrograma interrumpido por el usuario.")
+    except Exception as e:
+        print("Error inesperado en el programa:", e)
 
 if __name__ == "__main__":
-main()
-"""
+    main()
 
 """
+
 ### P3 ###
 import openai
 import os
@@ -144,9 +118,7 @@ def main():
 try:
 # Creo un cliente OpenAI
 try:
-client = openai.OpenAI(
-aca va la clave
-)
+client = openai.OpenAI(api_key)
 except Exception as e:
 print("Error al inicializar el cliente OpenAI:", e)
 return
@@ -206,10 +178,10 @@ print("Error inesperado en el programa:", e)
 
 if __name__ == "__main__":
 main()
-"""
 
 
-"""
+
+
 #PUNTO D
 #Extraemos funciones como:
 
@@ -297,16 +269,16 @@ print("Error inesperado en el programa:", e)
 
 if __name__ == "__main__":
 main()
-"""
+
 
 #Punto 5 B 
 
-"""
+
 chatgpt_interfaz.py
 Este script permite enviar una consulta a ChatGPT usando la API de OpenAI desde la consola.
-"""
 
-"""
+
+
 
 import openai
 import os
@@ -369,23 +341,21 @@ print("Error inesperado en el programa:", e)
 
 if __name__ == "__main__":
 main()
-"""
 
-# C
-#C0103: main() no está en snake_case: No lo cambio porque main() es un nombre convencionalmente aceptado 
-#para puntos de entrada en scripts Python.
+
+C
+C0103: main() no está en snake_case: No lo cambio porque main() es un nombre convencionalmente aceptado 
+#ara puntos de entrada en scripts Python.
 #si lo cambiao afectaría la claridad sin aportar valor.
 
 #Punto 6
-"""
+
 import openai # Librería oficial de OpenAI para usar su API
 import os # Para acceder a variableimport openai
-"""
-"""
+
+
 # Crear cliente OpenAI
-client = openai.OpenAI(
-aca va la clave
-)
+client = openai.OpenAI(api_key)
 
 def main():
 context = "Eres un asistente útil que responde con claridad y precisión."
@@ -409,9 +379,7 @@ messages=[
 import os
 
 # Crear cliente OpenAI
-client = openai.OpenAI(
-aca va la clave
-)
+client = openai.OpenAI(api_key)
 
 def main():
 context = "Eres un asistente útil que responde con claridad y precisión."
@@ -513,7 +481,7 @@ return # Sale del programa si no puede conectarse
 print("Bienvenido a ChatGPT interactivo. Escribí 'salir' para terminar.\n")
 
 try:
-# Bucle principal para recibir consultas del usuario
+Bucle principal para recibir consultas del usuario
 while True:
 try:
 consulta = obtener_consulta_usuario() # Pide una consulta
@@ -527,6 +495,4 @@ print("La consulta no puede estar vacía.")
 continue
 
 print(f"\nYou: {consulta}") # Muestra lo que se ingresó
-"""
-"""
 """
